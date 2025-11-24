@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: scbdb
+      POSTGRES_USER: scbuser
+      POSTGRES_PASSWORD: scbpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/scbdb
+      SPRING_DATASOURCE_USERNAME: scbuser
+      SPRING_DATASOURCE_PASSWORD: scbpass
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
