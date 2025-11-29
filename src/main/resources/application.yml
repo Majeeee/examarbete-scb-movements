@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: backend
+  r2dbc:
+    url: r2dbc:postgresql://postgres:5432/scbdb
+    username: scbuser
+    password: scbpass
+  sql:
+    init:
+      mode: always  # Valfritt, om du vill initiera DB med schema.sql
+
+server:
+  port: 8080
