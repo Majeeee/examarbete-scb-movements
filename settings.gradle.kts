@@ -1,1 +1,1 @@
-rootProject.name = "scb-movements-backend"
+rootProject.name = "backend"
