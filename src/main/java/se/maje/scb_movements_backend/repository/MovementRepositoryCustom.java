@@ -1,4 +1,4 @@
-package se.maje.scb_movements_backend.service;
+package se.maje.scb_movements_backend.repository;
 
 import reactor.core.publisher.Flux;
 import se.maje.scb_movements_backend.dto.MovementFilterDto;

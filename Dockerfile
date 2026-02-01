@@ -1,24 +1,25 @@
-FROM eclipse-temurin:17-jdk-alpine
+# --- Basbild ---
+FROM eclipse-temurin:17-jdk
 WORKDIR /app
 
-# Kopiera gradle-wrapper först (cache-optimering)
+# --- Kopiera gradle-wrapper först (cache-optimering) ---
 COPY gradlew .
 COPY gradle/ gradle/
 
-# Kopiera build-filer
+# --- Kopiera build-filer ---
 COPY build.gradle.kts settings.gradle.kts ./
 
-# Ge gradlew körbehörighet
+# --- Ge gradlew körbehörighet ---
 RUN chmod +x gradlew
 
-# Kopiera källkod
+# --- Kopiera källkod ---
 COPY src/ src/
 
-# Bygg JAR
+# --- Bygg JAR ---
 RUN ./gradlew clean bootJar --no-daemon
 
-# Exponera porten
+# --- Exponera port ---
 EXPOSE 8080
 
-# Starta JARen
+# --- Starta backend ---
 CMD ["java", "-jar", "/app/build/libs/backend-0.0.1-SNAPSHOT.jar"]

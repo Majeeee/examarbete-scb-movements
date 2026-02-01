@@ -1,4 +1,12 @@
 package se.maje.scb_movements_backend.dto;
 
-public record AuthResponse() {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class AuthResponse {
+    private String token;
 }

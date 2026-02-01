@@ -1,0 +1,39 @@
+services:
+  scb-postgres:
+    image: postgres:16
+    container_name: scb-postgres
+    environment:
+      POSTGRES_DB: scbdb
+      POSTGRES_USER: scbuser
+      POSTGRES_PASSWORD: 123
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U scbuser -d scbdb"]
+      interval: 5s
+      retries: 5
+      start_period: 10s
+
+  backend:
+    build: .
+    container_name: scb-backend
+    depends_on:
+      scb-postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_R2DBC_URL: r2dbc:postgresql://scb-postgres:5432/scbdb
+      SPRING_R2DBC_USERNAME: scbuser
+      SPRING_R2DBC_PASSWORD: 123
+
+      SPRING_DATASOURCE_URL: jdbc:postgresql://scb-postgres:5432/scbdb
+      SPRING_DATASOURCE_USERNAME: scbuser
+      SPRING_DATASOURCE_PASSWORD: 123
+
+      SPRING_FLYWAY_ENABLED: "true"
+
+volumes:
+  pgdata:

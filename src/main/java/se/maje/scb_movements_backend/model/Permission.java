@@ -1,12 +1,24 @@
 package se.maje.scb_movements_backend.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Data
-@Table("user_roles")
+@NoArgsConstructor
+@AllArgsConstructor
+@Table("permissions")
 public class Permission {
 
-    private Long userId;
-    private Long roleId;
+    @Id
+    private Long id;
+
+    /**
+     * READ_MOVEMENTS
+     * DELETE_USER
+     * VIEW_ADMIN_PAGE
+     */
+    private String name;
 }

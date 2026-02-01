@@ -1,28 +1,27 @@
 package se.maje.scb_movements_backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Builder;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
-@Entity
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Table("movementsRecord")
 public class MovementRecord {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String region;
+    private String regionCode;
+    private String municipalityCode;
     private String sex;
     private String age;
     private String moveType;
+    private LocalDate date;
+    private Integer inflow;
+    private Integer outflow;
     private Integer year;
-    private Long count;
 }

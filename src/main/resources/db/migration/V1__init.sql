@@ -1,7 +1,4 @@
 -- V1__init.sql
-
-
-
 CREATE TABLE IF NOT EXISTS roles (
                                      id BIGSERIAL PRIMARY KEY,
                                      name VARCHAR(50) NOT NULL UNIQUE
@@ -53,5 +50,5 @@ CREATE INDEX IF NOT EXISTS idx_movements_year ON movementsRecord(year);
 CREATE INDEX IF NOT EXISTS idx_movements_type ON movementsRecord(move_type);
 
 
-INSERT INTO roles (name) VALUES ('ROLE_USER') ON CONFLICT DO NOTHING;
-INSERT INTO roles (name) VALUES ('ROLE_ADMIN') ON CONFLICT DO NOTHING;
+-- INSERT INTO roles (name) VALUES ('ROLE_USER') ON CONFLICT DO NOTHING;
+-- INSERT INTO roles (name) VALUES ('ROLE_ADMIN') ON CONFLICT DO NOTHING;

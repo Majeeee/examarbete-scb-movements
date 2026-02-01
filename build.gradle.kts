@@ -6,7 +6,7 @@ plugins {
 
 group = "se.maje"
 version = "0.0.1-SNAPSHOT"
-description = "Demo project for Spring Boot"
+description = "Spring WebFlux + R2DBC + JWT Demo"
 
 java {
 	toolchain {
@@ -19,21 +19,46 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-amqp")
-	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
-	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.boot:spring-boot-starter-validation")
+
+	// WebFlux
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
+
+	// Security (WebFlux)
+	implementation("org.springframework.boot:spring-boot-starter-security")
+
+	// Validation
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+
+	// R2DBC (Reactive Postgres)
+	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+	runtimeOnly("org.postgresql:r2dbc-postgresql")
+
+	// JDBC (endast för Flyway)
+	implementation("org.springframework.boot:spring-boot-starter-jdbc")
+	runtimeOnly("org.postgresql:postgresql")
+
+	// Flyway
 	implementation("org.flywaydb:flyway-core")
 	implementation("org.flywaydb:flyway-database-postgresql")
-	implementation("org.springframework:spring-jdbc")
-	runtimeOnly("org.postgresql:postgresql")
-	runtimeOnly("org.postgresql:r2dbc-postgresql")
+
+	// RabbitMQ AMQP
+	implementation("org.springframework.boot:spring-boot-starter-amqp")
+
+	// JWT
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
+
+	// Lombok
+	compileOnly("org.projectlombok:lombok")
+	annotationProcessor("org.projectlombok:lombok")
+
+	// Test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
-	testImplementation("org.springframework.amqp:spring-rabbit-test")
 	testImplementation("org.springframework.security:spring-security-test")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	implementation("org.springframework.boot:spring-boot-starter-mail")
 }
 
 tasks.withType<Test> {
